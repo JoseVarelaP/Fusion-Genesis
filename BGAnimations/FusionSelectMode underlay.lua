@@ -38,8 +38,8 @@ local function InputHandler(event)
 	elseif event.button == "DownRight" then
 		SOUND:PlayOnce(THEME:GetPathS("", "Start"))
 		
-		Speed = Speed + 1
-		if Speed > 3 then Speed = 1 end
+		Speed = Speed + 0.5
+		if Speed > 2 then Speed = 1 end
 		
 		GAMESTATE:ApplyGameCommand("mod," .. Speed .. "x", PLAYER_1)
 		Select = 4
@@ -51,7 +51,7 @@ local function InputHandler(event)
 	MESSAGEMAN:Broadcast("UpdateMode")
 end
 
-local t = Def.ActorFrame {
+return Def.ActorFrame {
 	OnCommand=function(self)
 		SCREENMAN:set_input_redirected(PLAYER_1, true)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
@@ -65,22 +65,10 @@ local t = Def.ActorFrame {
 		InitCommand=function(self)
 			self:FullScreen():diffuse(color("#eeaacc"))
 		end
-	}
-}
+	},
+	
+	LoadActor("StarBackground.lua"),
 
-for i = 1, 28 do
-	t[#t+1] = Def.ActorFrame {
-		Def.Sprite {
-			Texture=THEME:GetPathG("", "StarBackground"),
-			InitCommand=function(self)
-				self:xy(SCREEN_CENTER_X, i * 8):valign(0):setstate(i - 1)
-				:texcoordvelocity((math.random() - 0.5) / 8, 0):SetTextureFiltering(false)
-			end
-		}
-	}
-end
-
-t[#t+1] = Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMode/Header"),
 		InitCommand=function(self)
@@ -152,9 +140,9 @@ t[#t+1] = Def.ActorFrame {
 		UpdateModeMessageCommand=function(self)
 			if Speed == 1 then
 				self:Load(THEME:GetPathG("", "SelectMode/Learner"))
-			elseif Speed == 2 then
+			elseif Speed == 1.5 then
 				self:Load(THEME:GetPathG("", "SelectMode/Expert"))
-			elseif Speed == 3 then
+			elseif Speed == 2 then
 				self:Load(THEME:GetPathG("", "SelectMode/Master"))
 			else
 				self:Load(THEME:GetPathG("", "SelectMode/Learner"))
@@ -172,5 +160,3 @@ t[#t+1] = Def.ActorFrame {
 		UpdateModeMessageCommand=function(self) self:setstate(0):visible(Select == 4) end
 	},
 }
-
-return t

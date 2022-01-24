@@ -1,0 +1,126 @@
+local Songs = SONGMAN:GetSongsInGroup("PrexHack")
+
+local Index1 = 1
+local Index2 = Index1 + 1
+if Index2 > #Songs then Index2 = 1 end
+local CurrentSongs = { Songs[Index1], Songs[Index2] }
+local Select = false
+
+local function InputHandler(event)
+	if not event.PlayerNumber then return end
+	if event.type ~= "InputEventType_FirstPress" then return end
+	
+	if event.button == "UpLeft" then
+		if Select == 1 then
+			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
+			SCREENMAN:set_input_redirected(PLAYER_1, false)
+			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+		else
+			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
+			GAMESTATE:SetCurrentSong(CurrentSongs[1])
+			GAMESTATE:SetCurrentSteps(PLAYER_1, CurrentSongs[1]:GetOneSteps("StepsType_Pump_Single", GAMESTATE:GetPreferredDifficulty(PLAYER_1)))
+			Select = 1
+		end
+	elseif event.button == "UpRight" then
+		if Select == 2 then
+			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
+			SCREENMAN:set_input_redirected(PLAYER_1, false)
+			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+		else
+			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
+			GAMESTATE:SetCurrentSong(CurrentSongs[2])
+			GAMESTATE:SetCurrentSteps(PLAYER_1, CurrentSongs[2]:GetOneSteps("StepsType_Pump_Single", GAMESTATE:GetPreferredDifficulty(PLAYER_1)))
+			Select = 2
+		end
+	elseif event.button == "DownLeft" then
+	
+		Index2 = Index1 - 1
+		if Index2 < 1 then Index2 = #Songs end
+		Index1 = Index2 - 1
+		if Index1 < 1 then Index1 = #Songs end
+		CurrentSongs = { Songs[Index1], Songs[Index2] }
+		Select = false
+		
+	elseif event.button == "DownRight" then
+	
+		Index1 = Index2 + 1
+		if Index1 > #Songs then Index1 = 1 end
+		Index2 = Index1 + 1
+		if Index2 > #Songs then Index2 = 1 end
+		CurrentSongs = { Songs[Index1], Songs[Index2] }
+		Select = false
+		
+	elseif event.button == "Back" then
+		SCREENMAN:set_input_redirected(PLAYER_1, false)
+		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToPrevScreen")
+	end
+	
+	MESSAGEMAN:Broadcast("UpdateMusic")
+end
+
+return Def.ActorFrame {
+	OnCommand=function(self)
+		GAMESTATE:SetCurrentPlayMode("PlayMode_Regular")
+		GAMESTATE:SetCurrentStyle("single")
+		SCREENMAN:set_input_redirected(PLAYER_1, true)
+		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
+	end,
+	
+	OffCommand=function(self)
+		SCREENMAN:set_input_redirected(PLAYER_1, false)
+	end,
+	
+	Def.Quad {
+		InitCommand=function(self)
+			self:FullScreen():diffuse(color("#eeaacc"))
+		end
+	},
+	
+	LoadActor("StarBackground.lua"),
+
+	Def.Sprite {
+		Texture=THEME:GetPathG("", "SelectMusic/Header"),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X, 8):valign(0)
+			:SetTextureFiltering(false)
+		end
+	},
+	
+	Def.Sprite {
+		Texture=CurrentSongs[1]:GetBannerPath(),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X - 18, 53):halign(1):valign(0):zoomto(108, 74)
+			:SetTextureFiltering(false)
+		end,
+		UpdateMusicMessageCommand=function(self)
+			self:Load(CurrentSongs[1]:GetBannerPath()):zoomto(108, 74)
+		end,
+	},
+	
+	Def.Sprite {
+		Texture=CurrentSongs[2]:GetBannerPath(),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X + 26, 52):halign(0):valign(0):zoomto(108, 74)
+			:SetTextureFiltering(false)
+		end,
+		UpdateMusicMessageCommand=function(self)
+			self:Load(CurrentSongs[2]:GetBannerPath()):zoomto(108, 74)
+		end,
+	},
+	
+	Def.Sprite {
+		Texture=THEME:GetPathG("", "SelectMusic/ShiftLeft"),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X - 114, SCREEN_BOTTOM - 30):halign(0):valign(1)
+			:SetTextureFiltering(false)
+		end
+	},
+	
+	Def.Sprite {
+		Texture=THEME:GetPathG("", "SelectMusic/ShiftRight"),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X + 126, SCREEN_BOTTOM - 30):halign(1):valign(1)
+			:SetTextureFiltering(false)
+		end
+	},
+}
