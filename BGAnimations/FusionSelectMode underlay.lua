@@ -1,6 +1,14 @@
 local Select = false
 local Speed = 1
 
+-- Define the default options
+GAMESTATE:ApplyGameCommand("mod,1x", PLAYER_1)
+PREFSMAN:SetPreference("TimingWindowSecondsW1", 0.033)
+PREFSMAN:SetPreference("TimingWindowSecondsW2", 0.049)
+PREFSMAN:SetPreference("TimingWindowSecondsW3", 0.065)
+PREFSMAN:SetPreference("TimingWindowSecondsW4", 0.065)
+PREFSMAN:SetPreference("TimingWindowSecondsW5", 0.065)
+
 local function InputHandler(event)
 	if not event.PlayerNumber then return end
 	if event.type ~= "InputEventType_FirstPress" then return end

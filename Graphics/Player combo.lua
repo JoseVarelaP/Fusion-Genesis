@@ -21,8 +21,8 @@ return Def.ActorFrame {
 	
 	InitCommand = function(self)
 		c = self:GetChildren()
-		c.Number:visible(false)
-		c.Label:visible(false)
+		c.Number:visible(false):SetTextureFiltering(false)
+		c.Label:visible(false):SetTextureFiltering(false)
 	end,
 	
 	ComboCommand=function(self, param)
@@ -36,5 +36,11 @@ return Def.ActorFrame {
 		c.Number:visible(true)
 		c.Label:visible(true)
 		c.Number:settext(string.format("%03i", iCombo))
+		self:stoptweening():sleep(1):queuecommand("Hide")
+	end,
+	
+	HideCommand=function(self)
+		c.Number:visible(false)
+		c.Label:visible(false)
 	end
 }
