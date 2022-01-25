@@ -36,7 +36,7 @@ return Def.ActorFrame {
 	},
 	
 	Def.Sprite {
-		Frames=Sprite.LinearFrames(149, 4),
+		-- Frames=Sprite.LinearFrames(149, 4),
 		Texture=THEME:GetPathG("", "TitleScreen/Background"),
 		InitCommand=function(self)
 			self:Center():SetTextureFiltering(false)
