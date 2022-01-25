@@ -70,6 +70,10 @@ return Def.ActorFrame {
 		GAMESTATE:SetCurrentPlayMode("PlayMode_Regular")
 		GAMESTATE:SetCurrentStyle("single")
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
+
+		self:RunCommandsRecursively(function(self)
+			if self.SetTextureFiltering then self:SetTextureFiltering(false) end
+		end)
 	end,
 	
 	Def.Quad {
@@ -84,23 +88,22 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "SelectMusic/Header"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X, 8):valign(0)
-			:SetTextureFiltering(false)
 		end
 	},
 	
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMusic/BannerMask"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 18, 53):halign(1):valign(0)
-			:SetTextureFiltering(false):MaskSource()
+			self:xy(SCREEN_CENTER_X - 18, 53):align(1,0)
+			:MaskSource()
 		end
 	},
 	
 	Def.Sprite {
 		Texture=CurrentSongs[1]:GetBannerPath(),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 18, 53):halign(1):valign(0):zoomto(108, 74)
-			:SetTextureFiltering(false):MaskDest():ztestmode("ZTestMode_WriteOnFail")
+			self:xy(SCREEN_CENTER_X - 18, 53):align(1,0):zoomto(108, 74)
+			:MaskDest():ztestmode("ZTestMode_WriteOnFail")
 		end,
 		UpdateMusicMessageCommand=function(self)
 			self:Load(CurrentSongs[1]:GetBannerPath()):zoomto(108, 74)
@@ -111,8 +114,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMusic/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 12, 47):halign(1):valign(0)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X - 12, 47):align(1,0)
+			:visible(false)
 		end,
 		UpdateMusicMessageCommand=function(self) self:setstate(0):visible(Select == 1) end
 	},
@@ -120,16 +123,16 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMusic/BannerMask"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 26, 52):halign(0):valign(0)
-			:SetTextureFiltering(false):MaskSource()
+			self:xy(SCREEN_CENTER_X + 26, 52):align(0,0)
+			:MaskSource()
 		end
 	},
 	
 	Def.Sprite {
 		Texture=CurrentSongs[2]:GetBannerPath(),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 26, 52):halign(0):valign(0):zoomto(108, 74)
-			:SetTextureFiltering(false):MaskDest():ztestmode("ZTestMode_WriteOnFail")
+			self:xy(SCREEN_CENTER_X + 26, 52):align(0,0):zoomto(108, 74)
+			:MaskDest():ztestmode("ZTestMode_WriteOnFail")
 		end,
 		UpdateMusicMessageCommand=function(self)
 			self:Load(CurrentSongs[2]:GetBannerPath()):zoomto(108, 74)
@@ -140,8 +143,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMusic/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 20, 46):halign(0):valign(0)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X + 20, 46):align(0,0)
+			:visible(false)
 		end,
 		UpdateMusicMessageCommand=function(self) self:setstate(0):visible(Select == 2) end
 	},
@@ -149,16 +152,14 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMusic/ShiftLeft"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 114, SCREEN_BOTTOM - 30):halign(0):valign(1)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X - 114, SCREEN_BOTTOM - 30):align(0,1)
 		end
 	},
 	
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMusic/ShiftRight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 126, SCREEN_BOTTOM - 30):halign(1):valign(1)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X + 126, SCREEN_BOTTOM - 30):align(1,1)
 		end
 	},
 }
