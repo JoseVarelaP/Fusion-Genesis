@@ -8,6 +8,7 @@ This theme has been made by SheepyChris, with lots of help from lots of people:
 - barru: Connecting dwangoAC to us and creating a channel to talk about the game at the SM64 Community Games Discord server
 - BedrockSolid: Assistance with the panel presentation, making suggestions to the theme and testing
 - dj505: Recreating stepcharts, making suggestions to the theme and testing
+- Jose_Varela: Making suggestions and submitting fixes/PRs to the theme
 - Shoutouts to everyone else @ CIU!
 
 This would have also not been possible without the hard work from the OutFox development team, which are:
