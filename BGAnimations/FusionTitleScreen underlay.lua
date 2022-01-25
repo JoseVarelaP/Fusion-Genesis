@@ -50,7 +50,7 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "TitleScreen/MaleDancer"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X - 55, SCREEN_BOTTOM - 41)
-			:halign(1):valign(1):SetTextureFiltering(false)
+			:align(1,1):SetTextureFiltering(false)
 		end
 	},
 	
@@ -59,7 +59,7 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "TitleScreen/FemaleDancer"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X + 48, SCREEN_BOTTOM - 40)
-			:halign(0):valign(1):SetTextureFiltering(false)
+			:align(0,1):SetTextureFiltering(false)
 		end
 	},
 	
