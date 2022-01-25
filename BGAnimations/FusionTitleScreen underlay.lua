@@ -21,12 +21,7 @@ end
 return Def.ActorFrame {
 	OnCommand=function(self)
 		GAMESTATE:JoinPlayer(PLAYER_1)
-		SCREENMAN:set_input_redirected(PLAYER_1, true)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
-	end,
-	
-	OffCommand=function(self)
-		SCREENMAN:set_input_redirected(PLAYER_1, false)
 	end,
    
 	Def.Quad {

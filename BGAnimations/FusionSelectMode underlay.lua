@@ -16,7 +16,6 @@ local function InputHandler(event)
 	if event.button == "UpLeft" then
 		if Select == 1 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -26,7 +25,6 @@ local function InputHandler(event)
 	elseif event.button == "UpRight" then
 		if Select == 2 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -37,7 +35,6 @@ local function InputHandler(event)
 	elseif event.button == "DownLeft" then
 		if Select == 3 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -55,7 +52,6 @@ local function InputHandler(event)
 	elseif event.button == "Center" then -- Secret mode!
 		if Select == 5 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -63,7 +59,6 @@ local function InputHandler(event)
 			Select = 5
 		end
 	elseif event.button == "Back" then
-		SCREENMAN:set_input_redirected(PLAYER_1, false)
 		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToPrevScreen")
 	end
 	
@@ -72,12 +67,7 @@ end
 
 return Def.ActorFrame {
 	OnCommand=function(self)
-		SCREENMAN:set_input_redirected(PLAYER_1, true)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
-	end,
-	
-	OffCommand=function(self)
-		SCREENMAN:set_input_redirected(PLAYER_1, false)
 	end,
 	
 	Def.Quad {

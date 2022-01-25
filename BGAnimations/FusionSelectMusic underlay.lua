@@ -20,7 +20,6 @@ local function InputHandler(event)
 	if event.button == "UpLeft" then
 		if Select == 1 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -31,7 +30,6 @@ local function InputHandler(event)
 	elseif event.button == "UpRight" then
 		if Select == 2 then
 			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
-			SCREENMAN:set_input_redirected(PLAYER_1, false)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
@@ -71,12 +69,7 @@ return Def.ActorFrame {
 	OnCommand=function(self)
 		GAMESTATE:SetCurrentPlayMode("PlayMode_Regular")
 		GAMESTATE:SetCurrentStyle("single")
-		SCREENMAN:set_input_redirected(PLAYER_1, true)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
-	end,
-	
-	OffCommand=function(self)
-		SCREENMAN:set_input_redirected(PLAYER_1, false)
 	end,
 	
 	Def.Quad {
