@@ -24,13 +24,13 @@ return function(Player)
 	}
 	
 	local CurrentCombo = 0
+	local PlayerScore = 0
 
 	return Def.Actor {
 		InitCommand=function(self)
             -- Reset your score, dummy
             local CSS = STATSMAN:GetCurStageStats()
             local PSS = CSS:GetPlayerStageStats(Player)
-			PlayerScore = 0
             PSS:SetScore(0)
 		end,
 		
@@ -79,6 +79,8 @@ return function(Player)
 				if PlayerScore < 0 then PlayerScore = 0 end
 				
 				PSS:SetScore(PlayerScore)
+
+				MESSAGEMAN:Broadcast("PIUScore",{Score = PlayerScore})
 			end
 		end
 	}
