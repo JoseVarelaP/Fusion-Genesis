@@ -33,6 +33,10 @@ return function(Player)
             local PSS = CSS:GetPlayerStageStats(Player)
             PSS:SetScore(0)
 		end,
+
+		OnCommand=function(self)
+			MESSAGEMAN:Broadcast("PIUScore",{Score = 0})
+		end,
 		
 		JudgmentMessageCommand=function(self, params)
 			local Notes = {}
