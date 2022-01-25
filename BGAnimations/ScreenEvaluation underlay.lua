@@ -12,6 +12,10 @@ return Def.ActorFrame {
 		self:GetChild("MaxCombo"):settext(PSS:MaxCombo())
 		
 		self:GetChild("Score"):settext(string.format("%08d", PSS:GetScore()))
+
+		self:RunCommandsRecursively(function(self)
+			if self.SetTextureFiltering then self:SetTextureFiltering(false) end
+		end)
 	end,
 	
 	Def.Quad {
@@ -23,7 +27,7 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "Evaluation"),
 		InitCommand=function(self) 
-			self:Center():SetTextureFiltering(false)
+			self:Center()
 		end
 	},
 	
@@ -31,8 +35,7 @@ return Def.ActorFrame {
 		Name="Grade",
 		Texture=THEME:GetPathG("", "Grades/F"),
 		InitCommand=function(self) 
-			self:xy(SCREEN_CENTER_X - 56, SCREEN_BOTTOM - 56)
-			:halign(1):valign(1):SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X - 56, SCREEN_BOTTOM - 56):align(1,1)
 		end
 	},
 	
@@ -40,8 +43,7 @@ return Def.ActorFrame {
 		Name="Perfect",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 56)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 56):align(0,0)
         end
     },
 	
@@ -49,8 +51,7 @@ return Def.ActorFrame {
 		Name="Great",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 80)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 80):align(0,0)
         end
     },
 	
@@ -58,8 +59,7 @@ return Def.ActorFrame {
 		Name="Good",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 104)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 104):align(0,0)
         end
     },
 	
@@ -67,8 +67,7 @@ return Def.ActorFrame {
 		Name="Calory",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 128)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 128):align(0,0)
         end
     },
 	
@@ -76,8 +75,7 @@ return Def.ActorFrame {
 		Name="Miss",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 152)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 152):align(0,0)
         end
     },
 	
@@ -85,8 +83,7 @@ return Def.ActorFrame {
 		Name="MaxCombo",
         Font="JudgeNumbers",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 92, 176)
-			:halign(0):valign(0):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 92, 176):align(0,0)
         end
     },
 	
@@ -94,8 +91,7 @@ return Def.ActorFrame {
 		Name="Score",
         Font="EvalScore",
         InitCommand=function(self)
-            self:xy(SCREEN_CENTER_X - 54, SCREEN_BOTTOM - 18)
-			:halign(1):valign(1):SetTextureFiltering(false)
+            self:xy(SCREEN_CENTER_X - 54, SCREEN_BOTTOM - 18):align(1,1)
         end
     }
 }

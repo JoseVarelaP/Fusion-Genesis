@@ -20,8 +20,13 @@ end
 
 return Def.ActorFrame {
 	OnCommand=function(self)
+		GAMESTATE:Reset()
 		GAMESTATE:JoinPlayer(PLAYER_1)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
+
+		self:RunCommandsRecursively(function(self)
+			if self.SetTextureFiltering then self:SetTextureFiltering(false) end
+		end)
 	end,
    
 	Def.Quad {
@@ -34,14 +39,14 @@ return Def.ActorFrame {
 		-- Frames=Sprite.LinearFrames(149, 4),
 		Texture=THEME:GetPathG("", "TitleScreen/Background"),
 		InitCommand=function(self)
-			self:Center():SetTextureFiltering(false)
+			self:Center()
 		end
 	},
 	
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "TitleScreen/Logo"),
 		InitCommand=function(self)
-			self:Center():SetTextureFiltering(false)
+			self:Center()
 		end
 	},
 	
@@ -50,7 +55,7 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "TitleScreen/MaleDancer"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X - 55, SCREEN_BOTTOM - 41)
-			:halign(1):valign(1):SetTextureFiltering(false)
+			:align(1,1)
 		end
 	},
 	
@@ -59,7 +64,7 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "TitleScreen/FemaleDancer"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X + 48, SCREEN_BOTTOM - 40)
-			:halign(0):valign(1):SetTextureFiltering(false)
+			:align(0,1)
 		end
 	},
 	
@@ -68,7 +73,7 @@ return Def.ActorFrame {
 		InitCommand=function(self)
 			self:cropto(30, 224)
 			:xy(SCREEN_CENTER_X - 136, SCREEN_CENTER_Y)
-			:texcoordvelocity(0, -0.233):SetTextureFiltering(false)
+			:texcoordvelocity(0, -0.233)
 		end
 	},
 	
@@ -77,7 +82,7 @@ return Def.ActorFrame {
 		InitCommand=function(self)
 			self:cropto(30, 224)
 			:xy(SCREEN_CENTER_X + 136, SCREEN_CENTER_Y)
-			:texcoordvelocity(0, 0.233):SetTextureFiltering(false)
+			:texcoordvelocity(0, 0.233)
 		end
 	}
 }

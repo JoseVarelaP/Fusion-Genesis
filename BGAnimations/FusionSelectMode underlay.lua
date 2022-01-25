@@ -68,6 +68,9 @@ end
 return Def.ActorFrame {
 	OnCommand=function(self)
 		SCREENMAN:GetTopScreen():AddInputCallback(InputHandler)
+		self:RunCommandsRecursively(function(self)
+			if self.SetTextureFiltering then self:SetTextureFiltering(false) end
+		end)
 	end,
 	
 	Def.Quad {
@@ -82,15 +85,13 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "SelectMode/Header"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X, 8):valign(0)
-			:SetTextureFiltering(false)
 		end
 	},
 	
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMode/Easy"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 130, 55):halign(0):valign(0)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X - 130, 55):align(0,0)
 		end
 	},
 	
@@ -98,8 +99,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMode/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 136, 49):halign(0):valign(0)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X - 136, 49):align(0,0)
+			:visible(false)
 		end,
 		UpdateModeMessageCommand=function(self) self:setstate(0):visible(Select == 1) end
 	},
@@ -107,8 +108,7 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMode/Hard"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 130, 55):halign(1):valign(0)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X + 130, 55):align(1,0)
 		end
 	},
 	
@@ -116,8 +116,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMode/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 136, 49):halign(1):valign(0)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X + 136, 49):align(1,0)
+			:visible(false)
 		end,
 		UpdateModeMessageCommand=function(self) self:setstate(0):visible(Select == 2) end
 	},
@@ -125,8 +125,7 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMode/Normal"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 130, SCREEN_BOTTOM - 28):halign(0):valign(1)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X - 130, SCREEN_BOTTOM - 28):align(0,1)
 		end
 	},
 	
@@ -134,8 +133,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMode/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X - 136, SCREEN_BOTTOM - 22):halign(0):valign(1)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X - 136, SCREEN_BOTTOM - 22):align(0,1)
+			:visible(false)
 		end,
 		UpdateModeMessageCommand=function(self) self:setstate(0):visible(Select == 3) end
 	},
@@ -143,8 +142,7 @@ return Def.ActorFrame {
 	Def.Sprite {
 		Texture=THEME:GetPathG("", "SelectMode/Learner"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 130, SCREEN_BOTTOM - 28):halign(1):valign(1)
-			:SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X + 130, SCREEN_BOTTOM - 28):align(1,1)
 		end,
 		UpdateModeMessageCommand=function(self)
 			if Speed == 1 then
@@ -163,8 +161,8 @@ return Def.ActorFrame {
 		Frames=Sprite.LinearFrames(8, 0.75),
 		Texture=THEME:GetPathG("", "SelectMode/Highlight"),
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 136, SCREEN_BOTTOM - 22):halign(1):valign(1)
-			:SetTextureFiltering(false):visible(false)
+			self:xy(SCREEN_CENTER_X + 136, SCREEN_BOTTOM - 22):align(1,1)
+			:visible(false)
 		end,
 		UpdateModeMessageCommand=function(self) self:setstate(0):visible(Select == 4) end
 	},

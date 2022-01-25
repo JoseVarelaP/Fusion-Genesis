@@ -24,14 +24,14 @@ return Def.ActorFrame {
 	
 	Def.Sprite {
 		InitCommand=function(self)
-			self:xy(SCREEN_CENTER_X + 64, 19)
-			:halign(0):valign(0):SetTextureFiltering(false)
+			self:xy(SCREEN_CENTER_X + 64, 19):align(0,0):SetTextureFiltering(false)
+			local type = "Arcade"
 			
 			if GAMESTATE:GetPlayerState(PLAYER_1):GetPlayerOptions("ModsLevel_Preferred"):FailSetting() == "FailType_Off" then
-				self:Load(THEME:GetPathG("", "Gameplay/Free"))
-			else
-				self:Load(THEME:GetPathG("", "Gameplay/Arcade"))
+				type = "Free"
 			end
+
+			self:Load(THEME:GetPathG("", "Gameplay/"..type))
 		end
 	},
 	
@@ -39,7 +39,7 @@ return Def.ActorFrame {
 		Texture=THEME:GetPathG("", "Gameplay/ScoreLabel"),
 		InitCommand=function(self)
 			self:xy(SCREEN_CENTER_X - 73, SCREEN_BOTTOM - 42)
-			:halign(1):valign(1):SetTextureFiltering(false)
+			:align(1,1):SetTextureFiltering(false)
 		end
 	},
 	
