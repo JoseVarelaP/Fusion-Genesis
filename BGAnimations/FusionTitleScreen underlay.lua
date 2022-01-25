@@ -51,6 +51,24 @@ return Def.ActorFrame {
 	},
 	
 	Def.Sprite {
+		Frames=Sprite.LinearFrames(22, 1.2),
+		Texture=THEME:GetPathG("", "TitleScreen/MaleDancer"),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X - 55, SCREEN_BOTTOM - 41)
+			:halign(1):valign(1):SetTextureFiltering(false)
+		end
+	},
+	
+	Def.Sprite {
+		Frames=Sprite.LinearFrames(29, 1.5),
+		Texture=THEME:GetPathG("", "TitleScreen/FemaleDancer"),
+		InitCommand=function(self)
+			self:xy(SCREEN_CENTER_X + 48, SCREEN_BOTTOM - 40)
+			:halign(0):valign(1):SetTextureFiltering(false)
+		end
+	},
+	
+	Def.Sprite {
 		Texture=THEME:GetPathG("", "TitleScreen/1st2ndStripe"),
 		InitCommand=function(self)
 			self:cropto(30, 224)

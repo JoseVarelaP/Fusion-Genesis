@@ -1,4 +1,11 @@
-local Songs = SONGMAN:GetSongsInGroup("PrexHack")
+local Songs = {}
+local AllSongs = GAMESTATE:GetPreferredDifficulty(PLAYER_1) == "Difficulty_Edit"
+
+for Song in ivalues(AllSongs and SONGMAN:GetAllSongs() or SONGMAN:GetSongsInGroup("PIU Genesis")) do
+	if Song:GetOneSteps("StepsType_Pump_Single", GAMESTATE:GetPreferredDifficulty(PLAYER_1)) then
+		Songs[#Songs+1] = Song
+	end
+end
 
 local Index1 = 1
 local Index2 = Index1 + 1
@@ -8,7 +15,7 @@ local Select = false
 
 local function InputHandler(event)
 	if not event.PlayerNumber then return end
-	if event.type ~= "InputEventType_FirstPress" then return end
+	if event.type == "InputEventType_Release" then return end
 	
 	if event.button == "UpLeft" then
 		if Select == 1 then
@@ -33,7 +40,8 @@ local function InputHandler(event)
 			Select = 2
 		end
 	elseif event.button == "DownLeft" then
-	
+		
+		SOUND:PlayOnce(THEME:GetPathS("", "Start"))
 		Index2 = Index1 - 1
 		if Index2 < 1 then Index2 = #Songs end
 		Index1 = Index2 - 1
@@ -42,7 +50,8 @@ local function InputHandler(event)
 		Select = false
 		
 	elseif event.button == "DownRight" then
-	
+		
+		SOUND:PlayOnce(THEME:GetPathS("", "Start"))
 		Index1 = Index2 + 1
 		if Index1 > #Songs then Index1 = 1 end
 		Index2 = Index1 + 1

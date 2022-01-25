@@ -9,18 +9,18 @@ return function(PlayerScore)
 
     local GradeLetter = "F"
     local TotalNotes = Perfects + Greats + Goods + Misses
-    local PlayerAccuracy = (Perfects * 1 + Greats * 0.75 + Goods * 0.5 + MaxCombo * 0.05) / TotalNotes
+    local PlayerAccuracy = (Perfects * 1.2 + Greats * 0.9 + Goods * 0.6 + Misses * -0.9 + MaxCombo * 0.05) / TotalNotes
     
 	if FailGrade ~= "Grade_Failed" then
-		if PlayerAccuracy >= 0.7 then
+		if PlayerAccuracy >= 0.95 then
 			GradeLetter = "A"
-		elseif PlayerAccuracy >= 0.65 then
+		elseif PlayerAccuracy >= 0.90 then
 			GradeLetter = "B"
-		elseif PlayerAccuracy >= 0.60 then
+		elseif PlayerAccuracy >= 0.85 then
 			GradeLetter = "C"
-		elseif PlayerAccuracy >= 0.55 then
+		elseif PlayerAccuracy >= 0.75 then
 			GradeLetter = "D"
-		elseif PlayerAccuracy >= 0.50 then
+		elseif PlayerAccuracy >= 0.65 then
 			GradeLetter = "E"
 		end
 	end

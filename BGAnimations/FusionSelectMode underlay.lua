@@ -30,6 +30,7 @@ local function InputHandler(event)
 			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		else
 			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
+
 			GAMESTATE:SetPreferredDifficulty(PLAYER_1, "Difficulty_Medium")
 			Select = 2
 		end
@@ -51,6 +52,16 @@ local function InputHandler(event)
 		
 		GAMESTATE:ApplyGameCommand("mod," .. Speed .. "x", PLAYER_1)
 		Select = 4
+	elseif event.button == "Center" then -- Secret mode!
+		if Select == 5 then
+			SOUND:PlayOnce(THEME:GetPathS("", "Enter"))
+			SCREENMAN:set_input_redirected(PLAYER_1, false)
+			SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+		else
+			SOUND:PlayOnce(THEME:GetPathS("", "Switch"))
+			GAMESTATE:SetPreferredDifficulty(PLAYER_1, "Difficulty_Edit")
+			Select = 5
+		end
 	elseif event.button == "Back" then
 		SCREENMAN:set_input_redirected(PLAYER_1, false)
 		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToPrevScreen")

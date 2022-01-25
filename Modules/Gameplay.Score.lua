@@ -22,6 +22,8 @@ return function(Player)
 		TapNoteScore_HitMine = 0,
 		TapNoteScore_AvoidMine = 0
 	}
+	
+	local CurrentCombo = 0
 
 	return Def.Actor {
 		InitCommand=function(self)
@@ -57,7 +59,21 @@ return function(Player)
 				Notes = params.Notes
 				StepsCount = NumberOfElements(Holds) + NumberOfElements(Notes)
 				
-				PlayerScore = PlayerScore + (TapNoteScorePoints[TapNoteScore] * StepsCount)
+				-- Count the combo from Lua due to some issues, don't ask me
+				if TapNote and TapNote:GetTapNoteType() ~= "TapNoteType_HoldTail" then
+					CurrentCombo = CurrentCombo
+				else
+					if (TapNoteScore <= "TapNoteScore_W2" and TapNoteScore >= "TapNoteScore_W1") or TapNoteScore == "TapNoteScore_CheckpointHit" then
+						CurrentCombo = CurrentCombo + 1
+					else
+						CurrentCombo = 0
+					end
+				end
+				
+				local NoteScore = TapNoteScorePoints[TapNoteScore]
+				if CurrentCombo > 50 then NoteScore = NoteScore * 2 end
+				
+				PlayerScore = PlayerScore + (NoteScore * StepsCount)
 				
 				-- We don't want negative scores
 				if PlayerScore < 0 then PlayerScore = 0 end
